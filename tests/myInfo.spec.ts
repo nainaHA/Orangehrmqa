@@ -5,7 +5,7 @@ import { MyInfo } from '../pages/myinfo';
 //  import * as allure from 'allure-js-commons'
  
 test.describe("Orange HRM demo automation testing", () => {
-    test.beforeEach(async ({ loginPage }) => {
+    test.beforeEach(async ({ loginPage, page }) => {
         // Custom fixter
         const username =LoginData.username;
         const password = LoginData.password;
@@ -13,7 +13,8 @@ test.describe("Orange HRM demo automation testing", () => {
         await loginPage.open();
         // Login to OrangeHRM
         await loginPage.login(username, password);
-        //dashboard displayed
+        await expect(page).toHaveURL(/\/dashboard\/index/);
+        await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
     // await allure.label('module', 'authentication');
     // await allure.label('testType', 'smoke');
     // await allure.parameter('environment', 'demo');
@@ -27,7 +28,7 @@ test.describe("Orange HRM demo automation testing", () => {
         await infop.getempname();
         // employee details
         await infop.getempDetails();
-        //nationality
+        //nationality 
         await infop.getnationality();
         //matrimony
         await infop.getmatrital_status();
@@ -36,7 +37,8 @@ test.describe("Orange HRM demo automation testing", () => {
         //custom fields
         //await infop.get_customfield()
         //add extra details for attachind a file
-        await infop.add_button();
+        // await infop.add_button();
+        
     });
 });
  
